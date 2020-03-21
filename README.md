@@ -2,6 +2,7 @@
 
 This is Richard C. Waters' SERIES package for Common Lisp. In a nutshell: Think "Efficient MAPCAR" SERIES translates functional-style expressions into efficient loops. Series are to loops as control structures are to GOTOs.
 
+# Overview
 From the documentation:
 
 Series combine aspects of sequences, streams, and loops.  Like sequences,
@@ -70,3 +71,10 @@ to take is to simply write series expressions without worrying about
 transformability.  When problems come up, they can be ignored (since they
 cannot lead to the computation of incorrect results) or dealt with on an
 individual basis.
+
+# Installation
+
+When using ASDF:
+```
+(asdf:operate 'asdf:load-op :series)
+```
