@@ -325,9 +325,11 @@ Load SERIES, then:
 
 QUALIFIED ON:
 -----------
- 
-CMUCL 18b (cmucl-2.4.19-2)           [SuSE Linux 6.3/Intel] 
-CMUCL 18c                            [Solaris]          
-LispWorks 4.1                        [Windows NT 4.0 SP6]
-clisp-99.01.08-21 with -a option     [SuSE Linux 6.3/Intel]
-ACL 5.0.1                            [SuSE Linux 6.3/Intel]
+
+| Implementation                     | Platform               |
+| ---------------------------------- | ---------------------- |
+|CMUCL 18b (cmucl-2.4.19-2)          | [SuSE Linux 6.3/Intel] |
+|CMUCL 18c                           | [Solaris]              |
+|LispWorks 4.1                       | [Windows NT 4.0 SP6]   |
+|clisp-99.01.08-21 with -a option    | [SuSE Linux 6.3/Intel] |
+|ACL 5.0.1                           | [SuSE Linux 6.3/Intel] |
