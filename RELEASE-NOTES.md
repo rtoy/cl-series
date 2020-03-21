@@ -73,21 +73,21 @@ series.asd to a directory in the search path), you can use Series as a
 dependency in your own systems and compile and load Series as follows:
 
 ASDF:
-
+```
 (asdf:operate 'asdf:compile-op :series) ; compile only
 (asdf:operate 'asdf:load-op :series)    ; compile if needed, load
-
+```
 MK-DEFSYSTEM:
-
+```
 (mk:oos :series :compile) ; compile if needed, load
 (mk:oos :series :load)    ; just load
-
+```
 If you want to run the tests, [compile and] load the `series-test'
-system and call CL-USER::DO-TESTS.  Don't get scared about
+system and call `CL-USER::DO-TESTS`.  Don't get scared about
 "compilation aborted" messages.  If it's reported that all tests
 passed, it means it was just the error testing.
 
-You can use SERIES::INSTALL for "use-package"ing Series in a way that
+You can use `SERIES::INSTALL` for "use-package"ing Series in a way that
 extended special forms are shadow-import'ed and reader macros are
 installed.
 
@@ -96,55 +96,52 @@ Release notes
 -------------
 
 * Series 2.2.11 Release Notes
-  o Update to work with CCL.
-  o Implement feature request 2295778 - don't ignore fill-pointer.
-  o Export COLLECT-IGNORE functionality.
+    * Update to work with CCL.
+    * Implement feature request 2295778 - don't ignore fill-pointer.
+    * Export `COLLECT-IGNORE` functionality.
 
 * Series 2.2.10 Release Notes
-  o Add optimizer for SERIES so (series t nil) returns #z(t nil t nil
-  ...) instead of #(list t nil list t nil ...)
-  o The #Z reader signals an error if we are trying to create an
-  infinite literal series.
-  o Many docstrings updated with more descriptive documentation.
-  o Documentation updated 
-  o Support ECL and SCL.
+    * Add optimizer for SERIES so `(series t nil)` returns `#z(t nil t nil ...)` instead of `#(list t nil list t nil ...)`
+    * The `#Z` reader signals an error if we are trying to create an infinite literal series.
+    * Many docstrings updated with more descriptive documentation.
+    * Documentation updated 
+    * Support ECL and SCL.
 
 * Series 2.2.9 Release Notes
 
-o Fix issue with SERIES being a declaration and a type, which is not
-  allowed by ANSI CL.
+    * Fix issue with SERIES being a declaration and a type, which is not allowed by ANSI CL.
 
 * Series 2.2.8 Release Notes
 
-o Support for SBCL and asdf.
-o Some fixes for CMUCL 18e and later.
-o ALTER was not working in some cases.
-o Bug 434120 fixed.
+    * Support for SBCL and asdf.
+    * Some fixes for CMUCL 18e and later.
+    * ALTER was not working in some cases.
+    * Bug 434120 fixed.
 
 * Series 2.2.7 Release Notes
 
-o Some changes for CLISP 2.29.  The declaration SYSTEM::READ-ONLY was
-  blocking optimization.
-o Fix bugs:
-  498418:  cmucl doesn't like dumping functions
-  516952:  only optimized split-if works
-o A bug in scan-fn-opt causing unbound variables in some situations
-  has been fixed.  (From Joe Marshall.)
-o The original (ASCII) documentation for series is now included in
-  s-doc.txt.  
-o Added a code walker for walking macrolet forms for
-  Clisp.  Useful since Clisp macroexpands extended loop forms into
-  forms containing macrolet.
+    * Some changes for CLISP 2.29.  The declaration SYSTEM::READ-ONLY was
+      blocking optimization.
+    * Fix bugs:
+      498418:  cmucl doesn't like dumping functions
+      516952:  only optimized split-if works
+    * A bug in scan-fn-opt causing unbound variables in some situations
+      has been fixed.  (From Joe Marshall.)
+    * The original (ASCII) documentation for series is now included in
+      s-doc.txt.  
+    * Added a code walker for walking macrolet forms for
+      Clisp.  Useful since Clisp macroexpands extended loop forms into
+      forms containing macrolet.
 
 
 * Series 2.2.6 Release Notes
 
-o Use list pretty-printer for printing out series (for CMUCL).
-o Some more doc strings.
-o Some optimizations from Joe Marshall for Allegro.  Allegro
-  apparently doesn't fold constants in coerce.
-o Make series work with Allegro in modern mode (case-sensitive
-  reader).
+    o Use list pretty-printer for printing out series (for CMUCL).
+    o Some more doc strings.
+    o Some optimizations from Joe Marshall for Allegro.  Allegro
+      apparently doesn't fold constants in coerce.
+    o Make series work with Allegro in modern mode (case-sensitive
+      reader).
 
 
 * Series 2.2.6 was never released
@@ -152,15 +149,15 @@ o Make series work with Allegro in modern mode (case-sensitive
 
 * Series 2.2.5 Release Notes
 
-o Fixed a bug in scan-stream returning the wrong stuff.
+    * Fixed a bug in scan-stream returning the wrong stuff.
 
 
 * Series 2.2.4 Release Notes
 
-o Fixed a bug wherein Clisp fails on test 530.  (Some variables were
-  sharing structure?)  Clisp passes all tests now.
-o Made changes to support MCL.  MCL now passes all tests.  (Thanks to
-  Rainer Joswig for testing and debugging this version!)
+    * Fixed a bug wherein Clisp fails on test 530.  (Some variables were
+      sharing structure?)  Clisp passes all tests now.
+    * Made changes to support MCL.  MCL now passes all tests.  (Thanks to
+      Rainer Joswig for testing and debugging this version!)
 
 
 * Series 2.2.3 Release Notes
@@ -235,32 +232,32 @@ IMPROVEMENTS:
 - MACROLETs or CLOS::VARIABLE-REBINDING declarations do not block
   optimization under LispWorks.
 - Better code generation
-  . Stricter typing.
-  . OUTPUT IS NOW `LETIFIED'. SETQs GO HOME!!
-    (Replaced as many SETQs as possible by initializations at LET
-    binding time)
-  . Removed global function namespace pollution.
-  . Encapsulated series subfunctions.
-  . Prevented generation of some dead termination code.
-  . Whole expression (t) and :loop wrapper placement
-    (:prolog and :epilog support easy to add, if necessary).
-  . Optimized collections of the form (collect [type] (scan [type]
-    ({list | ..}
-  . Some fixnum declarations were further constrained.
-  . Optimized scanning of constant sequences.
-  . Somewhat optimized scanning of "empty" vectors, ie,
-    declared to be of constant 0 length, like in
-    (collect (scan '(vector t 0) <gimme-a-huge-array-to-throw-away>) 
-    now gives you NIL generating/executing less instructions.
-    [<gimme-a-huge-array-to-throw-away> is still executed if not constantp, 
-     though]
-  . Variables of type NULL are replaced by constant NILs.
-  . Avoid indirect funcalling through a variable in CHOOSE-IF and
-    basic-collect-fn whenever possible.
-  . Avoid consing in MAP-FN.
-  . Removes fake series result variables from generated code.
-  . polycall et al. are now tail recursive [If your compiler cannot
-    optimize this, bark to your provider]
+    - Stricter typing.
+    - OUTPUT IS NOW `LETIFIED'. SETQs GO HOME!!
+      (Replaced as many SETQs as possible by initializations at LET
+      binding time)
+    - Removed global function namespace pollution.
+    - Encapsulated series subfunctions.
+    - Prevented generation of some dead termination code.
+    - Whole expression (t) and :loop wrapper placement
+      (:prolog and :epilog support easy to add, if necessary).
+    - Optimized collections of the form (collect [type] (scan [type]
+      ({list | ..}
+    - Some fixnum declarations were further constrained.
+    - Optimized scanning of constant sequences.
+    - Somewhat optimized scanning of "empty" vectors, ie,
+      declared to be of constant 0 length, like in
+      (collect (scan '(vector t 0) <gimme-a-huge-array-to-throw-away>) 
+      now gives you NIL generating/executing less instructions.
+      [<gimme-a-huge-array-to-throw-away> is still executed if not constantp, 
+       though]
+    - Variables of type NULL are replaced by constant NILs.
+    - Avoid indirect funcalling through a variable in CHOOSE-IF and
+      basic-collect-fn whenever possible.
+    - Avoid consing in MAP-FN.
+    - Removes fake series result variables from generated code.
+    - polycall et al. are now tail recursive [If your compiler cannot
+      optimize this, bark to your provider]
 
 - Source clean up.
   Local series functions are almost there (FLET extension)
@@ -302,21 +299,27 @@ BUG FIXES:
 
 COMPILING
 --------
+```
 (load "s-package")
 (compile-file "s-package")
 (compile-file "s-code")
-
+```
 LOADING
 -------
+```
 (load "s-package")
 (load "s-code")
+```
 
 TESTING
 -------
 Load SERIES, then:
+```
 (compile-file "s-test")
 (load "s-test")
 (user::do-tests)
+```
+
 [Don't get scared about "compilation aborted" messages. 
  If it's reported that all tests passed, 
  it means it was just the error testing]
@@ -324,7 +327,9 @@ Load SERIES, then:
 "use-package'ing"
 -----------------
 Load SERIES, then:
+```
 (series::install)
+```
 [This will shadow-import extended special forms and install readmacros]
 
 
