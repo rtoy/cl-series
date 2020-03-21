@@ -115,12 +115,12 @@ Release notes
 
     * Support for SBCL and asdf.
     * Some fixes for CMUCL 18e and later.
-    * ALTER was not working in some cases.
+    * `ALTER` was not working in some cases.
     * Bug 434120 fixed.
 
 * Series 2.2.7 Release Notes
 
-    * Some changes for CLISP 2.29.  The declaration SYSTEM::READ-ONLY was
+    * Some changes for CLISP 2.29.  The declaration `SYSTEM::READ-ONLY` was
       blocking optimization.
     * Fix bugs:
       498418:  cmucl doesn't like dumping functions
@@ -136,11 +136,11 @@ Release notes
 
 * Series 2.2.6 Release Notes
 
-    o Use list pretty-printer for printing out series (for CMUCL).
-    o Some more doc strings.
-    o Some optimizations from Joe Marshall for Allegro.  Allegro
+    * Use list pretty-printer for printing out series (for CMUCL).
+    * Some more doc strings.
+    * Some optimizations from Joe Marshall for Allegro.  Allegro
       apparently doesn't fold constants in coerce.
-    o Make series work with Allegro in modern mode (case-sensitive
+    * Make series work with Allegro in modern mode (case-sensitive
       reader).
 
 
@@ -164,23 +164,23 @@ Release notes
 
 Two small bugs are fixed in this release:
 
-1. collect 'vector sometimes collected the result in reverse order.
+1. `collect 'vector` sometimes collected the result in reverse order.
    (See Bug #108331.)
-2. scan fails sometimes when scanning a constant. (See Bug #113625.)
+2. `scan` fails sometimes when scanning a constant. (See Bug #113625.)
 
 
 * Series 2.2.2 Release Notes
 
 NEW SPECIFICATION RESTRICTIONS
 
-1. The consequences of using the gatherers introduced by GATHERING
+1. The consequences of using the gatherers introduced by `GATHERING`
    outside the dynamic scope of the form are now explicitly stated to
-   be undefined, except for those declared INDEFINITE-EXTENT.
+   be undefined, except for those declared `INDEFINITE-EXTENT`.
    
    If you need them to be indefinite extent by default, evaluate
-   (pushnew :cltl2-series) before compilation (or interpreted load)
+   `(pushnew :cltl2-series)` before compilation (or interpreted load)
 
-   After loading series :cltl2-series will indicate if
+   After loading series `:cltl2-series` will indicate if
    backward-compatibility mode is enabled.
 
    Rationale for this change: 
@@ -191,31 +191,31 @@ NEW SPECIFICATION RESTRICTIONS
 NEW FEATURES:
 ------------
 
-- GATHER-NEXT
-  A macro with the same effect as the NEXT-OUT function, but with
+- `GATHER-NEXT`
+  A macro with the same effect as the `NEXT-OUT` function, but with
   result undefined.
-- GATHER-RESULT
-  A macro with the same semantics as the RESULT-OF function,
-- FGATHER-NEXT
-  Like GATHER-NEXT, but the gatherer argument must be a symbol
-  denoting a gatherer bound by FLET.
-- FGATHER-RESULT
-  Like GATHER-RESULT, but the gatherer argument must be a symbol
-  denoting a gatherer bound by FLET.
-- FGATHERING
-  Like GATHERING, but where the gatherers are bound by FLET instead of
-  LET.  Same extent rules as for GATHERING apply. Remember that where
-  you would use (declare (indefinite-extent g)) inside GATHERING, you
-  need to do (declare (indefinite-extent #'g)) with FGATHERING.
-- GATHERLET
-  The basic construct upon which GATHERING rests. No automatic return
+- `GATHER-RESULT`
+  A macro with the same semantics as the `RESULT-OF` function,
+- `FGATHER-NEXT`
+  Like `GATHER-NEXT`, but the gatherer argument must be a symbol
+  denoting a gatherer bound by `FLET`.
+- `FGATHER-RESULT`
+  Like `GATHER-RESULT`, but the gatherer argument must be a symbol
+  denoting a gatherer bound by `FLET`.
+- `FGATHERING`
+  Like `GATHERING`, but where the gatherers are bound by `FLET` instead of
+  `LET`.  Same extent rules as for `GATHERING` apply. Remember that where
+  you would use (declare (indefinite-extent g)) inside `GATHERING`, you
+  need to do (declare (indefinite-extent #'g)) with `FGATHERING`.
+- `GATHERLET`
+  The basic construct upon which `GATHERING` rests. No automatic return
   of gatherer results. And no extent restrictions, of course. If you
   want something dynamic-extent, you'll have to declare it.
-- FGATHERLET
-  The `F' version of GATHERLET. Duh.
-- COLLECT-PRODUCT
-  Like COLLECT-SUM, but for #'*. How more obvious does it get?
-- INDEFINITE-EXTENT
+- `FGATHERLET`
+  The `F' version of `GATHERLET`. Duh.
+- `COLLECT-PRODUCT`
+  Like `COLLECT-SUM`, but for #'*. How more obvious does it get?
+- `INDEFINITE-EXTENT`
   Declaration exported.
 - (collect 'set
   Collects a series into a list removing any duplicates in the most
@@ -223,18 +223,18 @@ NEW FEATURES:
 - (collect 'ordered-set
   Collects a series into a list removing any duplicates but keeping the 
   original series order.
-- SCAN now allows to drop the type specifier for any argument
+- `SCAN` now allows to drop the type specifier for any argument
   [:cltl2-series reactivates the old 'list assumption]
-- SCAN now can scan multidimensional arrays in row-major order.
+- `SCAN` now can scan multidimensional arrays in row-major order.
 
 IMPROVEMENTS:
 ------------
-- MACROLETs or CLOS::VARIABLE-REBINDING declarations do not block
+- `MACROLET`s or `CLOS::VARIABLE-REBINDING` declarations do not block
   optimization under LispWorks.
 - Better code generation
     - Stricter typing.
     - OUTPUT IS NOW `LETIFIED'. SETQs GO HOME!!
-      (Replaced as many SETQs as possible by initializations at LET
+      (Replaced as many `SETQ`s as possible by initializations at `LET`
       binding time)
     - Removed global function namespace pollution.
     - Encapsulated series subfunctions.
@@ -248,43 +248,43 @@ IMPROVEMENTS:
     - Somewhat optimized scanning of "empty" vectors, ie,
       declared to be of constant 0 length, like in
       (collect (scan '(vector t 0) <gimme-a-huge-array-to-throw-away>) 
-      now gives you NIL generating/executing less instructions.
+      now gives you `NIL` generating/executing less instructions.
       [<gimme-a-huge-array-to-throw-away> is still executed if not constantp, 
        though]
-    - Variables of type NULL are replaced by constant NILs.
-    - Avoid indirect funcalling through a variable in CHOOSE-IF and
+    - Variables of type `NULL` are replaced by constant `NIL`s.
+    - Avoid indirect funcalling through a variable in `CHOOSE-IF` and
       basic-collect-fn whenever possible.
-    - Avoid consing in MAP-FN.
+    - Avoid consing in `MAP-FN`.
     - Removes fake series result variables from generated code.
     - polycall et al. are now tail recursive [If your compiler cannot
       optimize this, bark to your provider]
 
 - Source clean up.
-  Local series functions are almost there (FLET extension)
-  Bottom-up definition for improved compilation.
-  Make source `FLET and LABELS ready'.
-  Renamed old fragL *fragL. Used new `*type*-free' fragL whenever possible.
-  `readability/documentation' release.
-  Abstracted use of aux component of frags.
-  Some work done towards multiple assignment support in PRODUCING.
-  Added private ANSI-compliant eval-when macro when special form is old-style.
-  Abstracted use of wrapper component of frags.
-  GENERATOR deftyped to CONS, not LIST, when necessary.
-  Abstracted use of prolog component of frags.
-  MERGE-FRAGS no longer depends on the exact order of frag components.
-  Removed almost all uses of *fragL already.
+    - Local series functions are almost there (`FLET` extension)
+    - Bottom-up definition for improved compilation.
+    - Make source ``FLET` and `LABELS` ready'.
+    - Renamed old fragL *fragL. Used new `*type*-free' fragL whenever possible.
+    - `readability/documentation' release.
+    - Abstracted use of aux component of frags.
+    - Some work done towards multiple assignment support in `PRODUCING`.
+    - Added private ANSI-compliant eval-when macro when special form is old-style.
+    - Abstracted use of wrapper component of frags.
+    - `GENERATOR` deftyped to `CONS`, not `LIST`, when necessary.
+    - Abstracted use of prolog component of frags.
+    - `MERGE-FRAGS` no longer depends on the exact order of frag components.
+    - Removed almost all uses of `*fragL` already.
 
 BUG FIXES:
 ---------
-- Does not unintern EXT:COLLECT and EXT:ITERATE anymore under CMUCL!!!
-- GATHERING et al. are not bitten by CMUCL DEFSTRUCT bugs.
+- Does not unintern `EXT:COLLECT` and `EXT:ITERATE` anymore under CMUCL!!!
+- `GATHERING` et al. are not bitten by CMUCL `DEFSTRUCT` bugs.
 - Allegro 5.x needs the GENERATOR deftype, too.
 - Workaround for ACL 5.0.1 TAGBODY bug.
 - ALL-TIME SERIES BUG FIX: wrappers now inserted more precisely.
-- Some initial (unread) bindings of variables could be NIL,
-  contradicting declarations. Uses LOCALLY now for those (and also for
-  all others for which NIL is OK, but which can be left unbound, if an
-  implementation provides another version of LET that does not do NIL
+- Some initial (unread) bindings of variables could be `NIL`,
+  contradicting declarations. Uses `LOCALLY` now for those (and also for
+  all others for which `NIL` is OK, but which can be left unbound, if an
+  implementation provides another version of `LET` that does not do `NIL`
   defaulting (and ideally would raise a compilation error if a
   variable is read before its written to)).
 - Full letification works (modulo off-lining, and disabled because
