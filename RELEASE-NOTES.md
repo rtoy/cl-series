@@ -108,18 +108,15 @@ Release notes
     * Support ECL and SCL.
 
 * Series 2.2.9 Release Notes
-
     * Fix issue with SERIES being a declaration and a type, which is not allowed by ANSI CL.
 
 * Series 2.2.8 Release Notes
-
     * Support for SBCL and asdf.
     * Some fixes for CMUCL 18e and later.
     * `ALTER` was not working in some cases.
     * Bug 434120 fixed.
 
 * Series 2.2.7 Release Notes
-
     * Some changes for CLISP 2.29.  The declaration `SYSTEM::READ-ONLY` was
       blocking optimization.
     * Fix bugs:
@@ -133,9 +130,7 @@ Release notes
       Clisp.  Useful since Clisp macroexpands extended loop forms into
       forms containing macrolet.
 
-
 * Series 2.2.6 Release Notes
-
     * Use list pretty-printer for printing out series (for CMUCL).
     * Some more doc strings.
     * Some optimizations from Joe Marshall for Allegro.  Allegro
@@ -143,17 +138,14 @@ Release notes
     * Make series work with Allegro in modern mode (case-sensitive
       reader).
 
-
 * Series 2.2.6 was never released
 
 
 * Series 2.2.5 Release Notes
-
     * Fixed a bug in scan-stream returning the wrong stuff.
 
 
 * Series 2.2.4 Release Notes
-
     * Fixed a bug wherein Clisp fails on test 530.  (Some variables were
       sharing structure?)  Clisp passes all tests now.
     * Made changes to support MCL.  MCL now passes all tests.  (Thanks to
@@ -161,12 +153,10 @@ Release notes
 
 
 * Series 2.2.3 Release Notes
-
-Two small bugs are fixed in this release:
-
-1. `collect 'vector` sometimes collected the result in reverse order.
-   (See Bug #108331.)
-2. `scan` fails sometimes when scanning a constant. (See Bug #113625.)
+    * Two small bugs are fixed in this release:
+	1. `collect 'vector` sometimes collected the result in reverse order.
+	   (See Bug #108331.)
+	2. `scan` fails sometimes when scanning a constant. (See Bug #113625.)
 
 
 * Series 2.2.2 Release Notes
