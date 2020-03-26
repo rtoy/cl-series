@@ -16,9 +16,9 @@
                  (:file "s-code")))
 
 (defmethod perform ((op test-op) (c (eql (find-system :series))))
-  (oos 'test-op 'series-tests))
+  (oos 'test-op 'series/tests))
 
-(asdf:defsystem series-tests
+(asdf:defsystem series/tests
   :depends-on (series)
   :version "2.2.11"			; Same as series
   :in-order-to ((test-op (load-op :series)))
@@ -26,10 +26,10 @@
   ((:file "s-test")))
 
 (defmethod operation-done-p ((op test-op)
-                             (c (eql (find-system :series-tests))))
+                             (c (eql (find-system :series/tests))))
   nil)
 
 
-(defmethod perform ((op test-op) (c (eql (find-system :series-tests))))
+(defmethod perform ((op test-op) (c (eql (find-system :series/tests))))
   (or (funcall (intern "DO-TESTS" (find-package "RT")))
       (error "TEST-OP failed for SERIES-TESTS")))
